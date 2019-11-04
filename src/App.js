@@ -1,14 +1,11 @@
 import React, { Component, Fragment } from 'react';   
-import {Button, Row} from 'react-bootstrap';   
-
-import Header from './components/Header';
+import {Button, Row} from 'react-bootstrap';    
+import Header from './components/Header'; 
 import Counter from './components/Counter'; 
 import HighScoreAccordion from './components/HighScoreAccordion'; 
-import Footer from './components/Footer';
-
+import Footer from './components/Footer'; 
 import ErrorBondary from './components/ErrorBondary';
-import Instruction from './components/Instructions';
-
+import Instruction from './components/Instruction';
 
 class App extends Component { 
   constructor(props) {
@@ -44,7 +41,7 @@ class App extends Component {
     return(
       <Fragment>   
         <Header name={this.state.isLoggedIn ? 'John' : 'User'} user='the player'>
-            <small>If you dare...</small>  
+            <small>If you dare...</small>   
         </Header>  
 
         <Row className="justify-content-center">

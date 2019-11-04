@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import {Button, Container, Row, Col} from 'react-bootstrap';
-import DeckOfCards from './DeckOfCards';
+import DeckOfCards from './DeckOfCards'; 
  
 export default class Counter extends Component{
 
@@ -61,12 +61,11 @@ export default class Counter extends Component{
     componentDidCatch(error, info){
         console.log('componentDidCatch', error, info)
      }*/
-
-
-
+ 
     checkGameStatue() {
-        console.log('game over')
-        this.setState({playMargin: 0})
+        if( this.state.playMargin  < 0 ){
+            alert('game over')
+        } 
     }
 
     increase () { 
@@ -76,10 +75,14 @@ export default class Counter extends Component{
         this.setState({ playedCards: [...this.state.playedCards, card ]});
         this.setState({counter: this.state.counter +1}); 
         this.setState({cardCount: this.state.cardCount + card}); 
-
-        (this.state.playMargin - card) < 0 ? 
-            this.checkGameStatue() : 
-            this.setState({playMargin: this.state.playMargin - card}) ;
+        
+        if( (this.state.playMargin - card) < 0){  
+                this.setState({playMargin: this.state.playMargin - card});     
+                alert('game over')
+        }else{
+            this.setState({playMargin: this.state.playMargin - card}); 
+        }
+        
     } 
 
     render() {   
@@ -110,9 +113,9 @@ export default class Counter extends Component{
                         onClick={this.increase.bind(this)}>TAKE ANOTHER CARD</Button>
                 </Col> 
                 <Col className="m-2 d-flex justify-content-center flex-wrap"> 
-                    <DeckOfCards card={this.state.card}/>
-                </Col> 
-                
+                    {this.state.playedCards.length ? <DeckOfCards card={this.state.card}/> : null }
+                </Col>  
+                    {this.state.playMargin === 0 ?  'game end' : null}
             </Container>
         );
     }
