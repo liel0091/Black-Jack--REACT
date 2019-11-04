@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';   
-import {Button, Row} from 'react-bootstrap';    
+import {Button, Row} from 'react-bootstrap'; 
+import { Spring } from 'react-spring/renderprops';   
 import Header from './components/Header'; 
 import Counter from './components/Counter'; 
 import HighScoreAccordion from './components/HighScoreAccordion'; 
@@ -30,8 +31,7 @@ class App extends Component {
   handelLoggIn = () => { 
     this.state.isLoggedIn ? 
       this.setState({isLoggedIn: false}) : 
-      this.setState({isLoggedIn: true}); 
-
+      this.setState({isLoggedIn: true});  
   }
    
   render() {   
@@ -39,10 +39,20 @@ class App extends Component {
     const loggout = 'Logged Out';
 
     return(
-      <Fragment>   
-        <Header name={this.state.isLoggedIn ? 'John' : 'User'} user='the player'>
-            <small>If you dare...</small>   
-        </Header>  
+      <Fragment>    
+        <Spring
+          from={{ opacity: 0, marginTop: -500 }}
+          to={{ opacity: 1, marginTop: 0}} 
+          config={{ delay: 700, duration: 1000}} 
+        >
+          { props => (
+            <div style={props}>
+              <Header name={this.state.isLoggedIn ? 'John' : 'User'} user='the player'>
+                  <small>If you dare...</small>   
+              </Header>  
+            </div>
+          )}
+        </Spring>
 
         <Row className="justify-content-center">
           <Button variant={this.state.isLoggedIn ? "primary" : "secondary"} className="m-2" onClick={this.handelLoggIn}>

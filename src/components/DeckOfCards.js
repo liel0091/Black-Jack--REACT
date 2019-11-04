@@ -1,47 +1,36 @@
-import React, {Component} from 'react';  
-import { Spring } from 'react-spring/renderprops';
-import { Card } from 'react-bootstrap';   
+import React from 'react';  
+import {useSpring, animated} from 'react-spring';  
 
- 
-class DeckOfCards extends Component {
- 
-  render(){ 
-    const myArray = [
-            <i className="fas fa-lg fa-heart" ></i>, 
-            <i className="fas fa-lg fa-spider"></i>,
-            <i className="fas fa-adjust"></i>,
-            <i className="far fa-lg fa-gem"></i>
-          ]; 
+const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.1]
+const trans = (x, y, s) => `perspective(1000px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`  
 
-    const sign = myArray[(Math.random() * myArray.length) | 0];
+function DeckOfCards() { 
+  const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 350, friction: 40 } }))
 
-    return(
+  const icons = [
+          <i className="fas fa-lg fa-heart" ></i>, 
+          <i className="fas fa-lg fa-spider"></i>,
+          <i className="fas fa-adjust"></i>,
+          <i className="far fa-lg fa-gem"></i>
+        ]; 
 
-      <Spring
-        from={{ opacity: 0, marginTop: -500 }}
-        to={{ opacity: 1, marginTop: 0}} 
-      >
-        { props => (
-          <div style={props}>
-            <Card className="shadow m-4" style={deckStyle}> 
-              <Card.Body>
-                <Card.Title className="m-2 d-flex flex-row-reverse">{this.props.card}</Card.Title>
-                <Card.Text className="d-flex justify-content-center align-items-center" style={{height:'20rem' }}> 
-                  {sign} 
-                </Card.Text> 
-              </Card.Body>
-            </Card>
-          </div>
-        )}
-      </Spring>
-      
+  const sign = icons[(Math.random() * icons.length) | 0];
+
+    return (
+      <animated.div
+        class="deck-of-cards"
+        onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
+        onMouseLeave={() => set({ xys: [0, 0, 1] })}
+        style={{ transform: props.xys.interpolate(trans) }}
+        >
+          <div onClick={alert('hello')}  > 
+              <span className="m-2 d-flex flex-row-reverse">number</span>
+              <span className="d-flex justify-content-center align-items-center" style={{height:'20rem' }}> 
+                {sign} 
+              </span>  
+            </div> 
+        </animated.div> 
     )
-  }
-}
-
-const deckStyle = {
-  width: '18rem',
-  height:'30rem' 
-}
+} 
 
 export default DeckOfCards; 
