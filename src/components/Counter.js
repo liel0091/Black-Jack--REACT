@@ -49,7 +49,7 @@ export default class Counter extends Component{
         console.log('Counter Did Update', prevProps, prevState)
     }*/
 
-    /**
+     /**
      * Lifecycle Unmount
     
     componentWillUnmount(){
@@ -71,7 +71,7 @@ export default class Counter extends Component{
         } 
     }
 
-    increase() { 
+    increase () { 
         const card = Math.floor(Math.random() * 21) + 1; 
 
         this.setState({ card: card});
@@ -79,9 +79,9 @@ export default class Counter extends Component{
         this.setState({counter: this.state.counter +1}); 
         this.setState({cardCount: this.state.cardCount + card}); 
         
-        this.checkGameStatue(card);
+        this.checkGameStatue(card); 
     } 
-
+  
     render() {   
         const playedCardsList = this.state.playedCards.map((playedCard, index) => <p key={index}>{playedCard + ','}</p>);
 
@@ -106,17 +106,13 @@ export default class Counter extends Component{
                 <Col className="m-2 d-flex justify-content-center flex-wrap">
                     <Button 
                         variant="secondary" 
-                        className="col-sm-12 col-md-6 m-2" 
-                        onClick={this.increase.bind(this)}>TAKE ANOTHER CARD</Button>
+                        className="col-sm-12 col-md-6 mr-2 mt-2" 
+                        onClick={this.increase.bind(this)}
+                        disabled={this.state.playMargin < 0 ? true : false}>TAKE ANOTHER CARD</Button>
                 </Col> 
                 <Col className="m-2 d-flex justify-content-center flex-wrap"> 
-                    {
-                        this.state.playedCards.length ? 
-                            <DeckOfCards card={this.state.card}/> : 
-                            null 
-                    }
-                </Col>  
-                    {this.state.playMargin === 0 ?  'game end' : null}
+                    {this.state.playedCards.length ? <DeckOfCards card={this.state.card}/> : null}
+                </Col>   
             </Container>
         );
     }

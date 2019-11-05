@@ -5,7 +5,7 @@ const Header = (props) => {
     const {name,user} = props; 
     
     return (
-        <>  
+        <>    
             <Row className="justify-content-center m-4">
                 <h1>Black Jack Game</h1> 
             </Row>
@@ -14,7 +14,7 @@ const Header = (props) => {
             </Row>
             <Row className="justify-content-center m-4"> 
                 {props.children}
-            </Row> 
+            </Row>  
         </> 
     );
 }  
