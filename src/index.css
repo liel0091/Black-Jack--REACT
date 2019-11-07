@@ -16,6 +16,7 @@ code {
   position: fixed;
   bottom: 0;
   width: 110%;
+  opacity: 0.9;
 }
 
 .deck-of-cards {
